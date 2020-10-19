@@ -1,5 +1,6 @@
 function print()
 {
+	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
 			var data = doc.data();
@@ -13,6 +14,47 @@ function print()
 
 		});
 	});
+	document.getElementById("filter").innerHTML = "Filter";
+}
+var state = 0;
+function printEmails()
+{
+	state = 1;
+	$("P").remove();
+	db.collection('people').get().then( (snapshot) => {
+		snapshot.docs.forEach(doc => {
+			var data = doc.data();
+
+			var p = document.createElement("P");
+			p.innerHTML = doc.data().email;
+			p.setAttribute("id", doc.id);
+			p.setAttribute("class", "data-title");
+			document.body.appendChild(p);
+
+
+		});
+	});
+	document.getElementById("filter").innerHTML = "Email";
+	toggleFilter();
+}
+function printNames()
+{
+	state = 2;
+	$("P").remove();
+	db.collection('people').get().then( (snapshot) => {
+		snapshot.docs.forEach(doc => {
+			var data = doc.data();
+
+			var p = document.createElement("P");
+			p.innerHTML = doc.data().name;
+			p.setAttribute("id", doc.id);
+			p.setAttribute("class", "data-title");
+			document.body.appendChild(p);
+
+		});
+	});
+	document.getElementById("filter").innerHTML = "Name";
+	toggleFilter();
 }
 
 
@@ -115,6 +157,16 @@ function getInput()
 		}
 		//print();
 	}
+}
+
+var filter = false;
+function toggleFilter()
+{
+	filter = !filter
+	if( !filter )
+		document.getElementById("myDropdown").style.display = "none";
+	else
+		document.getElementById("myDropdown").style.display = "block";
 }
 
 function set( email, name, line, lines, p ){

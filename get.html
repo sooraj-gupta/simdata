@@ -18,8 +18,16 @@
 		<br>
 		<hr>
 		<br>
+		<div class = "dropdown">
+			<button id = "filter" onclick = "toggleFilter();">Filter</button>
+			<div id="myDropdown" class="dropdown-content">
+				<a id = "all"  onclick = "print(); toggleFilter();">All</a>
+    			<a id = "email" onclick = "printEmails()">Email</a>
+    			<a id = "name" onclick = "printNames()">Name</a>
+  			</div>
+		</div>
 		<br>
-		
+		<br>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 
 		<script>
