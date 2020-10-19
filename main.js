@@ -113,7 +113,7 @@ function getInput()
 				break;
 			}
 		}
-		print();
+		//print();
 	}
 }
 
