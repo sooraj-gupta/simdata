@@ -7,6 +7,7 @@ body
 	color: white;
 	padding: 0px;
 	margin: 0;
+	overflow-x: hidden;
 }
 
 .topnav {
@@ -91,14 +92,14 @@ button
 	font-size: 20px;
 	margin: 20px 80px;
 	padding: 20px;
-	background-color: #444;
+	background-color: #222;
 	border:none;
 	color: white;
 }
 
 button:hover, a:hover
 {
-	background-color: #333;
+	background-color: #000;
 	cursor: pointer;
 }
 #filter{
@@ -123,3 +124,100 @@ label
 	font-size: 30px;
 	margin: 0px 80px;
 }
+
+.mobile{
+	display: none;
+}
+
+.desktop{
+	display: block;
+}
+
+#submit
+{
+	width: calc( 100vw - 175px );
+	margin: 50px 80px;
+	margin-top: 15px;
+	
+}
+
+@media (max-width: 1000px)
+{
+	
+	.topnav a
+	{
+		transition: 0.5s;
+		position: absolute;
+		right:40px;
+		padding: 0px 0px;
+	}
+	.mobile{
+		display: block;
+	}
+
+	.desktop{
+		display: none;
+	}
+	#menuwrapper{
+		overflow: hidden;
+		transition: 0.5s;
+        border: none;
+        padding: 0px 0px;
+        position: fixed;
+        z-index: 10001;
+        position: absolute;
+        right:-140px;
+        top:15px;
+		background-color: #111
+    }
+	#menu{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction:column;
+		min-height: 100vh;
+
+	}
+	#menu a{
+        margin: 0px;
+        font-size: 18px;
+		background-color: #111;
+    }
+	
+	h1,h3,p,h4 
+	{
+		padding:0px 50px;
+	}
+	hr
+	{
+		margin: 0px 50px;
+	}
+	label
+	{
+		font-size: 25px;
+		margin: 0px 50px;
+	}
+	.front
+	{
+		margin: 10px 50px;
+		padding: 20px;
+
+	}
+	textarea
+	{	
+		width: calc( 100vw - 115px );
+		margin: 0px 50px;
+	}
+	button
+	{
+		margin: 20px 50px;
+	}
+	.dropdown-content {
+	  margin-left: 50px;
+	}
+	#submit
+{
+	width: calc( 100vw - 115px );
+	margin: 50px 50px;
+	margin-top: 15px;
+}
+

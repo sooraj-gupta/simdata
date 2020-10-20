@@ -11,11 +11,18 @@
 	
 	<body>
 		<div class="topnav">
-			<a  href="get.html">Get Data</a>
-            <a  href="submit.html">Submit Data</a>
-			<a class="active" href = "index.html">Home</a>
-            
+			<a id = "menubutton" style = "font-weight: 500; font-size: 35px" class= "mobile active" onclick = "openMenu();">&middot;&middot;&middot;</a>
+			<a  href="get.html" class = "desktop">Get Data</a>
+            <a  href="submit.html" class = "desktop">Submit Data</a>
+			<a class="active desktop" href = "index.html">Home</a>
         </div>
+		<div id = "menuwrapper">
+			<div id = "menu">
+				<a class="active mobile" href = "index.html">Home</a>
+				<a  href="submit.html" class = "mobile">Submit Data</a>
+				<a  href="get.html" class = "mobile">Get Data</a>
+			</div>
+		</div>
 		<br>
 		<br>
 		<br>

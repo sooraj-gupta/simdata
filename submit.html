@@ -12,11 +12,18 @@
 	
 	<body>
 		<div class="topnav">
-			<a  href="get.html">Get Data</a>
-            <a  class="active" href="submit.html">Submit Data</a>
-			<a  href = "index.html">Home</a>
-            
+			<a id = "menubutton" style = "font-weight: 500; font-size: 35px" class= "mobile active" onclick = "openMenu();">&middot;&middot;&middot;</a>
+			<a  href="get.html" class = "desktop">Get Data</a>
+            <a  href="submit.html" class = "active desktop">Submit Data</a>
+			<a class="desktop" href = "index.html">Home</a>
         </div>
+		<div id = "menuwrapper">
+			<div id = "menu">
+				<a class="mobile" href = "index.html">Home</a>
+				<a  href="submit.html" class = " active mobile">Submit Data</a>
+				<a  href="get.html" class = "mobile">Get Data</a>
+			</div>
+		</div>
 		<br>
 		<br>
 		<br>
@@ -29,15 +36,15 @@
 			<form id="form">
 				<label>Emails</label><br>
 				<br>
-				<textarea id = "data" type = "text" name = "email" rows="10" cols="100" placeholder="name@email.com"></textarea><br>
+				<textarea type = "text" name = "email" rows="10" cols="100" placeholder="name@email.com"></textarea><br>
 				<br>
 				<br>
 				<label>Names</label><br>
 				<br>
-				<textarea id = "data" type = "text" name = "name" rows="10" cols="100" placeholder="First Last"></textarea>
+				<textarea type = "text" name = "name" rows="10" cols="100" placeholder="First Last"></textarea>
 				<br>
 				<p id = "message" style = "margin-bottom: 0; padding-bottom: 0; color: red;"></p>
-				<button type = "button" onclick = "getInput();" style = "width: calc( 100vw - 175px );margin: 50px 80px;margin-top: 15px;">Submit</button>
+				<button type = "button" onclick = "getInput();" id = "submit">Submit</button>
 			</form>
 		
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
