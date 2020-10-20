@@ -11,9 +11,12 @@ body
 }
 
 .topnav {
+	position: fixed;
     border:none;
     padding: 30px 20px;
 	padding-bottom: 30px;
+	width: 100vw;
+	right: 0;
 }
 
 /* Style the links inside the navigation bar */
@@ -144,12 +147,16 @@ label
 @media (max-width: 1000px)
 {
 	
-	.topnav a
+	.topnav
 	{
 		transition: 0.5s;
 		position: absolute;
 		right:40px;
 		padding: 0px 0px;
+	}
+	.topnav > a
+	{
+		transition: 0.5s;
 	}
 	.mobile{
 		display: block;

@@ -24,7 +24,7 @@ function openMenu()
 {
 	open = !open;
 	document.getElementById("menuwrapper").style.right = open ? "0px": "-140px";
-	document.getElementById("menubutton").style.right = open ? "180px": "40px";
+	document.getElementsByClassName("topnav")[0].style.right = open ? "180px": "40px";
 	//document.getElementById("menubutton").innerHTML = open ? "&vellip;": "&middot;&middot;&middot;";
 	document.getElementById("menubutton").style.transform =  open ? "rotate(-450deg)" : "rotate(0deg)";	
 }
