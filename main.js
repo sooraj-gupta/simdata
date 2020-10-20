@@ -1,5 +1,6 @@
 function print()
 {
+	document.getElementById("loading").style.display = "block";
 	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
@@ -13,6 +14,7 @@ function print()
 
 
 		});
+		document.getElementById("loading").style.display = "none";
 	});
 	document.getElementById("filter").innerHTML = "Filter";
 }
@@ -20,6 +22,7 @@ var state = 0;
 function printEmails()
 {
 	state = 1;
+	document.getElementById("loading").style.display = "block";
 	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
@@ -33,12 +36,14 @@ function printEmails()
 
 
 		});
+		document.getElementById("loading").style.display = "none";
 	});
 	document.getElementById("filter").innerHTML = "Email";
 	toggleFilter();
 }
 function printNames()
 {
+	document.getElementById("loading").style.display = "block";
 	state = 2;
 	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
@@ -52,6 +57,7 @@ function printNames()
 			document.body.appendChild(p);
 
 		});
+		document.getElementById("loading").style.display = "none";
 	});
 	document.getElementById("filter").innerHTML = "Name";
 	toggleFilter();
