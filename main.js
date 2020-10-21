@@ -21,7 +21,7 @@ function print()
 
 var open = false;
 function openMenu()
-{
+{ 
 	open = !open;
 	document.getElementById("menuwrapper").style.right = open ? "0px": "-140px";
 	document.getElementsByClassName("topnav")[0].style.right = open ? "180px": "40px";
