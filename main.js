@@ -29,6 +29,14 @@ function openMenu()
 	document.getElementById("menubutton").style.transform =  open ? "rotate(-450deg)" : "rotate(0deg)";	
 }
 
+var openPop = false;
+function togglePopup()
+{
+	openPop = !openPop;
+	document.getElementById("popupwrapper").style.display = openPop ? "block" : "none";
+}
+
+
 var state = 0;
 function printEmails()
 {
@@ -109,10 +117,17 @@ function getInput()
 	console.log( linesE );
 	console.log( linesN );
 	
+	
 	var p = document.getElementById("message");
-	if( linesE != linesN )
+	if( linesE == 0 || linesN == 0 )
 	{
-		p.innerHTML = "Error: The number of emails and names do not match. Please try again";
+		p.style.color = "red";
+		p.innerHTML = "Please enter some data";
+	}
+	else if( linesE != linesN )
+	{
+		p.style.color = "red";
+		p.innerHTML = "The number of emails and names do not match. Please try again";
 	}
 	else
 	{

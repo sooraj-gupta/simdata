@@ -44,9 +44,17 @@
 				<textarea type = "text" name = "name" rows="10" cols="100" placeholder="First Last"></textarea>
 				<br>
 				<p id = "message" style = "margin-bottom: 0; padding-bottom: 0; color: red;"></p>
-				<button type = "button" onclick = "getInput();" id = "submit">Submit</button>
+				<button type = "button" onclick = "togglePopup();" id = "submit">Submit</button>
 			</form>
 		
+		<div id = "popupwrapper">
+			<div id = "popup">
+				<center>
+					<h1>Are you sure?</h1><br>
+					<button id = "yes" onclick="togglePopup();getInput();">Yes</button><button onclick = "togglePopup();">No</button>
+				</center>
+			</div>
+		</div>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 
 		<script>
