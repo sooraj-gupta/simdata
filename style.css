@@ -54,10 +54,40 @@ h1:hover{
 	//color: #aaa;
 }
 
+#copied
+{
+	transition: 1s;
+	opacity: 1;
+	position: fixed;
+	top: -80px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	padding: 20px 0px;
+	background-color: green;
+	margin: 0;
+}
+#copyable
+{
+	display: none;
+	margin-left: 80px;
+}
+#copyable input
+{
+	font-size: 15px;
+	padding: 10px;
+	width: calc( 100vw - 175px );
+}
+#copyable button
+{
+	margin-left: 0px;
+}
 
 .dropdown {
   position: relative;
   display: inline-block;
+	padding: 0;
+	margin: 0;
 }
 a
 {
@@ -67,12 +97,11 @@ a
 	border:none;
 	color: white;
 	display: block;
+	margin: 0;
 }
 
 .dropdown-content {
   display: none;
-  margin-left: 80px;
-  //position: absolute;
   background-color: #444;
   min-width: 100px;
   z-index: 1;
@@ -106,6 +135,7 @@ button:hover, a:hover
 	cursor: pointer;
 }
 #filter{
+	margin: 0;
 	margin-bottom: 5px;
 }
 textarea
@@ -180,14 +210,12 @@ label
 	
 	.topnav
 	{
-		transition: 0.5s;
 		position: fixed;
 		right:40px;
 		padding: 0px 0px;
 	}
 	.topnav > a
 	{
-		transition: 0.5s;
 	}
 	.mobile{
 		display: block;
@@ -197,8 +225,7 @@ label
 		display: none;
 	}
 	#menuwrapper{
-		overflow: hidden;
-		transition: 0.5s;
+		display: none;
         border: none;
         padding: 0px 0px;
         position: fixed;
@@ -281,6 +308,10 @@ label
 	#popup #yes:hover
 	{
 		background-color: #880000;
+	}
+	#menubutton
+	{
+		background-color: transparent;
 	}
 }
 

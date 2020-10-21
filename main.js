@@ -1,3 +1,4 @@
+var count = 0;
 function print()
 {
 	document.getElementById("loading").style.display = "block";
@@ -11,10 +12,11 @@ function print()
 			p.setAttribute("id", doc.id);
 			p.setAttribute("class", "data-title");
 			document.body.appendChild(p);
-
+			count++;
 
 		});
 		document.getElementById("loading").style.display = "none";
+		document.getElementById("num").innerHTML = count + " Members";
 	});
 	document.getElementById("filter").innerHTML = "Filter";
 }
@@ -23,6 +25,7 @@ var open = false;
 function openMenu()
 { 
 	open = !open;
+	
 	document.getElementById("menuwrapper").style.display = open ? "block" : "none";
 	document.getElementById("menuwrapper").style.right = open ? "0px": "-140px";
 	document.getElementsByClassName("topnav")[0].style.right = open ? "180px": "40px";
@@ -38,6 +41,21 @@ function togglePopup()
 }
 
 
+function copy ( id )
+{
+	var text = document.getElementById( id );
+	text.select();
+	text.setSelectionRange(0, 99999);
+	document.execCommand("copy");
+	
+	//document.getElementById( "copied" ).style.display = "block";
+	//document.getElementById( "copied" ).style.opacity = "1";
+	document.getElementById( "copied" ).style.top = "0";
+	setTimeout( function(){
+		document.getElementById( "copied" ).style.top = "-80";
+	}, 3500 );
+	
+}
 
 var state = 0;
 function printEmails()
@@ -50,7 +68,7 @@ function printEmails()
 			var data = doc.data();
 
 			var p = document.createElement("P");
-			p.innerHTML = doc.data().email;
+			p.innerHTML = " " + doc.data().email + "  <br>";
 			p.setAttribute("id", doc.id);
 			p.setAttribute("class", "data-title");
 			document.body.appendChild(p);
@@ -61,6 +79,27 @@ function printEmails()
 	});
 	document.getElementById("filter").innerHTML = "Email";
 	toggleFilter();
+}
+
+function printList()
+{
+	console.log( "hello");
+	var emails = ""
+	document.getElementById("loading").style.display = "block";
+	$("P").remove();
+	db.collection('people').get().then( (snapshot) => {
+		snapshot.docs.forEach(doc => {
+			var data = doc.data();
+			emails += doc.data().email + " ";
+		});
+		document.getElementById("loading").style.display = "none";
+		document.getElementById("copyable").style.display = "block";
+		var p = document.getElementById( "emails" );
+		p.setAttribute( "value", emails );
+	});
+	document.getElementById("filter").innerHTML = "Copyable Email List";
+	toggleFilter();
+	
 }
 function printNames()
 {

@@ -9,7 +9,7 @@
 	</head>
 	
 	
-	<body onload = "print();">
+	<body onload = "">
 		<div class="topnav">
 			<a id = "menubutton" style = "font-weight: 500; font-size: 35px" class= "mobile active" onclick = "openMenu();">&middot;&middot;&middot;</a>
 			<a  href="get.html" class = "active desktop">Get Data</a>
@@ -30,9 +30,11 @@
 		<br>
 		<br>
 		<h1 onclick = "goto('index.html')">Students In Medicine</h1>
-		<h3>All Members</h1>
+		<h3>All Members</h3>
 		<br>
 		<hr>
+		<br>
+		<h3 id = "num"><h3>
 		<br>
 		<div class = "dropdown">
 			<button id = "filter" onclick = "toggleFilter();">Filter</button>
@@ -40,12 +42,21 @@
 				<a id = "all"  onclick = "print(); toggleFilter();">All</a>
     			<a id = "email" onclick = "printEmails()">Email</a>
     			<a id = "name" onclick = "printNames()">Name</a>
+				<a id = "emailcopy" onclick = "printList();">"Copyable" Email List</a>
   			</div>
 		</div>
 		<br>
 		<br>
 		<h4 id = "loading">Loading....</h4>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+		<h3 id = "copied">
+			The emails have been copied to the clipbeard homie. BETTTT
+		</h3>
+		<div id = "copyable">
+			<input style = "display" id = "emails" value = "">
+			<br>
+			<button onclick  = "copy('emails')">Copy all emails</button>	
+		</div>
 
 		<script>
 		  // Your web app's Firebase configuration
