@@ -3,6 +3,7 @@ function print()
 {
 	document.getElementById("loading").style.display = "block";
 	$("P").remove();
+	document.getElementById( "copyable" ).style.display = "none";
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
 			var data = doc.data();
@@ -62,6 +63,7 @@ function printEmails()
 {
 	state = 1;
 	document.getElementById("loading").style.display = "block";
+	document.getElementById( "copyable" ).style.display = "none";
 	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
@@ -86,6 +88,7 @@ function printList()
 	console.log( "hello");
 	var emails = ""
 	document.getElementById("loading").style.display = "block";
+	document.getElementById( "copyable" ).style.display = "none";
 	$("P").remove();
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
@@ -103,6 +106,7 @@ function printList()
 }
 function printNames()
 {
+	document.getElementById( "copyable" ).style.display = "none";
 	document.getElementById("loading").style.display = "block";
 	state = 2;
 	$("P").remove();
