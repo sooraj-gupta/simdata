@@ -1,25 +1,35 @@
-var count = 0;
+
+var info = [];
 function print()
 {
 	document.getElementById("loading").style.display = "block";
 	$("P").remove();
 	document.getElementById( "copyable" ).style.display = "none";
+	for( var i = 0; i < info.length; i++ )
+	{
+			var p = document.createElement("P");
+			p.innerHTML = i+1 + ". <b>Email: </b>" + info[i].email + " <b>Name: </b>" + info[i].name ;
+			p.setAttribute("id", info[i].email);
+			document.body.appendChild(p);
+	}
+	document.getElementById("loading").style.display = "none";
+	document.getElementById("num").innerHTML = info.length + " Members";
+	document.getElementById("filter").innerHTML = "Filter";
+}
+
+function getData()
+{
 	db.collection('people').get().then( (snapshot) => {
 		snapshot.docs.forEach(doc => {
 			var data = doc.data();
-
-			var p = document.createElement("P");
-			p.innerHTML = "<b>Email: </b>" + doc.data().email + " <b>Name: </b>" + doc.data().name ;
-			p.setAttribute("id", doc.id);
-			p.setAttribute("class", "data-title");
-			document.body.appendChild(p);
-			count++;
-
+			info.push( {"name": doc.data().name, "email": doc.data().email } );
 		});
-		document.getElementById("loading").style.display = "none";
-		document.getElementById("num").innerHTML = count + " Members";
+		info.sort( function( a, b ) 
+		{
+			return ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : ((a.name.toLowerCase() == b.name.toLowerCase()) ? 0 : 1));
+		});
+		print();
 	});
-	document.getElementById("filter").innerHTML = "Filter";
 }
 
 var open = false;
@@ -94,21 +104,15 @@ function printEmails()
 	document.getElementById("loading").style.display = "block";
 	document.getElementById( "copyable" ).style.display = "none";
 	$("P").remove();
-	db.collection('people').get().then( (snapshot) => {
-		snapshot.docs.forEach(doc => {
-			var data = doc.data();
-
+	for( var i = 0; i < info.length; i++ )
+	{
 			var p = document.createElement("P");
-			p.innerHTML = " " + doc.data().email + "  <br>";
-			p.setAttribute("id", doc.id);
-			p.setAttribute("class", "data-title");
+			p.innerHTML = i+1 + ". "+ info[i].email;
+			p.setAttribute("id", info[i].email);
 			document.body.appendChild(p);
-
-
-		});
-		document.getElementById("loading").style.display = "none";
-	});
+	}
 	document.getElementById("filter").innerHTML = "Email";
+	document.getElementById("loading").style.display = "none";
 	toggleFilter();
 }
 
@@ -119,16 +123,14 @@ function printList()
 	document.getElementById("loading").style.display = "block";
 	document.getElementById( "copyable" ).style.display = "none";
 	$("P").remove();
-	db.collection('people').get().then( (snapshot) => {
-		snapshot.docs.forEach(doc => {
-			var data = doc.data();
-			emails += doc.data().email + " ";
-		});
-		document.getElementById("loading").style.display = "none";
-		document.getElementById("copyable").style.display = "block";
-		var p = document.getElementById( "emails" );
-		p.setAttribute( "value", emails );
-	});
+	for( var i = 0; i < info.length; i++ )
+	{
+		emails += info[i].email + " ";
+	}
+	document.getElementById("loading").style.display = "none";
+	document.getElementById("copyable").style.display = "block";
+	var p = document.getElementById( "emails" );
+	p.setAttribute( "value", emails );
 	document.getElementById("filter").innerHTML = "Copyable Email List";
 	toggleFilter();
 	
@@ -139,19 +141,14 @@ function printNames()
 	document.getElementById("loading").style.display = "block";
 	state = 2;
 	$("P").remove();
-	db.collection('people').get().then( (snapshot) => {
-		snapshot.docs.forEach(doc => {
-			var data = doc.data();
-
+	var count = 0;
+	for( var i = 0; i < info.length; i++ )
+	{
 			var p = document.createElement("P");
-			p.innerHTML = doc.data().name;
-			p.setAttribute("id", doc.id);
-			p.setAttribute("class", "data-title");
+			p.innerHTML = i+1 + ". "+ info[i].name;
+			p.setAttribute("id", info[i].email);
 			document.body.appendChild(p);
-
-		});
-		document.getElementById("loading").style.display = "none";
-	});
+	}
 	document.getElementById("filter").innerHTML = "Name";
 	toggleFilter();
 }
