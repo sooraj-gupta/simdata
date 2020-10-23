@@ -38,7 +38,36 @@ var openPop = false;
 function togglePopup()
 {
 	openPop = !openPop;
-	document.getElementById("popupwrapper").style.display = openPop ? "block" : "none";
+	fadeIn( "popupwrapper", openPop );
+}
+
+function fadeIn( id, openPop )
+{
+	
+	if( openPop )
+	{
+		document.getElementById(id).style.display = openPop ? "block" : "none";
+		setTimeout( function() { 
+			document.getElementById(id).style.opacity = openPop ? "1" : "0";
+			document.getElementById("popup").style.display = openPop ? "block" : "none";
+		}, 10 ); 
+		setTimeout( function() { slideDown( "popup", openPop ) }, 100 );
+	}
+	else
+	{
+		slideDown( "popup", openPop );
+		setTimeout( function() { 
+			document.getElementById("popup").style.display = "none";
+			document.getElementById(id).style.opacity = "0";
+			setTimeout( function() { 
+				document.getElementById(id).style.display = "none";
+			} , 300 );
+		}, 300 ); 
+	} 
+}
+function slideDown( id, openPop )
+{
+	document.getElementById(id).style.top = openPop ? "calc(30vh - 20px)" : "-50vh";
 }
 
 
