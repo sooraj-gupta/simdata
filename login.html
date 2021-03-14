@@ -28,31 +28,35 @@
 		<br>
 		<br>
 		<h1 onclick = "goto('index.html')">Students In Medicine</h1>
-		<h3>Submitting Member Data</h1>
+		<h3>Login</h3>
 		<br>
 		<hr>
 		<br>
 		<br>
-			<form id="form">
-				<label>Emails</label><br>
-				<br>
-				<textarea type = "text" name = "email" rows="10" cols="100" placeholder="name@email.com"></textarea><br>
-				<br>
-				<br>
-				<label>Names</label><br>
-				<br> 
-				<textarea type = "text" name = "name" rows="10" cols="100" placeholder="First Last"></textarea>
-				<br>
-				<p id = "message" style = "margin-bottom: 0; padding-bottom: 0; color: red;"></p>
-				<button type = "button" onclick = "togglePopup();" id = "submit">Submit</button>
-			</form>
-		
+		<div style = "width: 100%; display: flex; justify-content: center; align-items: center; flex-wrap: wrap">
+			<div style = " background-color:#1A1A1A" id = "loginwrapper">
+				<form id="form">
+					<label>Email</label><br>
+					<br>
+					<input id = "email">
+					<br>
+					<br>
+					<br>
+					<label>Password</label><br>
+					<br> 
+					<input id = "password" type = "password">
+					<br>
+					<p id = "message" style = "margin-bottom: 0; padding: 0; color: red;"></p>
+					<button type = "button" onclick = "checkLogin()" id = "login">Login</button>
+				</form>
+			</div>
+		</div>
 		
 		<div id = "popupwrapper">
 			<div id = "popup">
 				<center>
-					<h1>Deadass?</h1><br>
-					<button id = "yes" onclick="togglePopup();getInput();">Fasholy</button><button onclick = "togglePopup();">Nah, Pass</button>
+					<h1>Are you sure?</h1><br>
+					<button id = "yes" onclick="togglePopup();getInput();">Fo Sho</button><button onclick = "togglePopup();">Nah, Pass</button>
 				</center>
 			</div>
 		</div>

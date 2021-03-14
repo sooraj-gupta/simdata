@@ -42,6 +42,8 @@
 				<a id = "all"  onclick = "print(); toggleFilter();">All</a>
     			<a id = "email" onclick = "printEmails()">Email</a>
     			<a id = "name" onclick = "printNames()">Name</a>
+				<a id = "fname" onclick = "printFirstNames()">First Name</a>
+				<a id = "lname" onclick = "printLastNames()">Last Name</a>
 				<a id = "emailcopy" onclick = "printList();">"Copyable" Email List</a>
   			</div>
 		</div>
@@ -50,7 +52,7 @@
 		<h4 id = "loading">Loading....</h4>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 		<h3 id = "copied">
-			The emails have been copied to the clipbeard homie. BETTTT
+			The emails have been copied to the clipboard homie. BETTTT
 		</h3>
 		<div id = "copyable">
 			<input style = "display" id = "emails" value = "">

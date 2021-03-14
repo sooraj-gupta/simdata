@@ -17,6 +17,43 @@ function print()
 	document.getElementById("filter").innerHTML = "Filter";
 }
 
+function checkLogin()
+{
+	var email = document.getElementById("email").value;
+	var pwd = document.getElementById("password").value;
+	var p = document.getElementById("message");
+	
+	if( email.length > 0 && pwd.length > 0 )
+	{
+		var ref = db.collection("emails").doc( email.toLowerCase() );
+		ref.get().then( function ( snapshot ){
+			if( snapshot.exists )
+			{
+
+				if( pwd == snapshot.data().password )
+				{
+					p.innerHTML = "Success!";
+					localStorage.setItem( "email", email );
+					localStorage.setItem( "pwd", pwd );
+				}
+				else
+					p.innerHTML = "Incorrect Password!";
+			}
+			else
+			{
+				p.innerHTML = "Email does not exist";
+			}
+		});
+	};
+	
+//	db.collection('email').get().then( (snapshot) => {
+//		snapshot.docs.forEach(doc => {
+//			
+//		}
+//	}
+	
+}
+
 function getData()
 {
 	db.collection('people').get().then( (snapshot) => {
@@ -150,6 +187,45 @@ function printNames()
 			document.body.appendChild(p);
 	}
 	document.getElementById("filter").innerHTML = "Name";
+	document.getElementById("loading").style.display = "none";
+	toggleFilter();
+}
+function printFirstNames()
+{
+	document.getElementById( "copyable" ).style.display = "none";
+	document.getElementById("loading").style.display = "block";
+	state = 2;
+	$("P").remove();
+	var count = 0;
+	for( var i = 0; i < info.length; i++ )
+	{
+			var p = document.createElement("P");
+			var fname = info[i].name.split(" ")[0];
+			p.innerHTML = i + 1 + ". "+ fname;
+			p.setAttribute("id", info[i].email);
+			document.body.appendChild(p);
+	}
+	document.getElementById("filter").innerHTML = "First Name";
+	document.getElementById("loading").style.display = "none";
+	toggleFilter();
+}
+function printLastNames()
+{
+	document.getElementById( "copyable" ).style.display = "none";
+	document.getElementById("loading").style.display = "block";
+	state = 2;
+	$("P").remove();
+	var count = 0;
+	for( var i = 0; i < info.length; i++ )
+	{
+			var p = document.createElement("P");
+			var lname = info[i].name.split(" ")[1];
+			p.innerHTML = i + 1 + ". "+ ( lname == undefined ? "" : lname );
+			p.setAttribute("id", info[i].email);
+			document.body.appendChild(p);
+	}
+	document.getElementById("filter").innerHTML = "Name";
+	document.getElementById("loading").style.display = "none";
 	toggleFilter();
 }
 
