@@ -61,7 +61,7 @@ function getData()
 			var data = doc.data();
 			info.push( {"name": doc.data().name, "email": doc.data().email } );
 		});
-		info.sort( function( a, b ) 
+		info.sort( function( a, b )
 		{
 			return ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : ((a.name.toLowerCase() == b.name.toLowerCase()) ? 0 : 1));
 		});
@@ -71,14 +71,14 @@ function getData()
 
 var open = false;
 function openMenu()
-{ 
+{
 	open = !open;
-	
+
 	document.getElementById("menuwrapper").style.display = open ? "block" : "none";
 	document.getElementById("menuwrapper").style.right = open ? "0px": "-140px";
 	document.getElementsByClassName("topnav")[0].style.right = open ? "180px": "40px";
 	//document.getElementById("menubutton").innerHTML = open ? "&vellip;": "&middot;&middot;&middot;";
-	document.getElementById("menubutton").style.transform =  open ? "rotate(-450deg)" : "rotate(0deg)";	
+	document.getElementById("menubutton").style.transform =  open ? "rotate(-450deg)" : "rotate(0deg)";
 }
 
 var openPop = false;
@@ -90,27 +90,27 @@ function togglePopup()
 
 function fadeIn( id, openPop )
 {
-	
+
 	if( openPop )
 	{
 		document.getElementById(id).style.display = openPop ? "block" : "none";
-		setTimeout( function() { 
+		setTimeout( function() {
 			document.getElementById(id).style.opacity = openPop ? "1" : "0";
 			document.getElementById("popup").style.display = openPop ? "block" : "none";
-		}, 10 ); 
+		}, 10 );
 		setTimeout( function() { slideDown( "popup", openPop ) }, 100 );
 	}
 	else
 	{
 		slideDown( "popup", openPop );
-		setTimeout( function() { 
+		setTimeout( function() {
 			document.getElementById("popup").style.display = "none";
 			document.getElementById(id).style.opacity = "0";
-			setTimeout( function() { 
+			setTimeout( function() {
 				document.getElementById(id).style.display = "none";
 			} , 300 );
-		}, 300 ); 
-	} 
+		}, 300 );
+	}
 }
 function slideDown( id, openPop )
 {
@@ -124,14 +124,14 @@ function copy ( id )
 	text.select();
 	text.setSelectionRange(0, 99999);
 	document.execCommand("copy");
-	
+
 	//document.getElementById( "copied" ).style.display = "block";
 	//document.getElementById( "copied" ).style.opacity = "1";
 	document.getElementById( "copied" ).style.top = "0";
 	setTimeout( function(){
 		document.getElementById( "copied" ).style.top = "-80";
 	}, 3500 );
-	
+
 }
 
 var state = 0;
@@ -170,7 +170,7 @@ function printList()
 	p.setAttribute( "value", emails );
 	document.getElementById("filter").innerHTML = "Copyable Email List";
 	toggleFilter();
-	
+
 }
 function printNames()
 {
@@ -240,17 +240,17 @@ function getInput()
 	const query = window.location.search;
 	const urlParams = new URLSearchParams(query);
 	//console.log( data );
-	
+
 	var val = $("form").serializeArray();
 	var names = val[1].value;
 	var emails = val[0].value;
-	
+
 	var linesE = 0;
 	for( var i = 0; i < emails.length; i++ )
 	{
 		if( emails.charAt(i) == '\n' )
 		{
-			linesE++;	
+			linesE++;
 		}
 	}
 	var linesN = 0;
@@ -258,13 +258,13 @@ function getInput()
 	{
 		if( names.charAt(i) == '\n' )
 		{
-			linesN++;	
+			linesN++;
 		}
 	}
 	console.log( linesE );
 	console.log( linesN );
-	
-	
+
+
 	var p = document.getElementById("message");
 	if( linesE == 0 || linesN == 0 )
 	{
@@ -300,7 +300,7 @@ function getInput()
 				}
 				else
 				{
-					buffer += emails.charAt(i);	
+					buffer += emails.charAt(i);
 					i++;
 				}
 
@@ -317,13 +317,17 @@ function getInput()
 				}
 				else
 				{
-					buffer += names.charAt(j);	
+					buffer += names.charAt(j);
 					j++;
 				}
 
 			}while ( names.charAt( j-1 ) != '\n' );
 			if( name && email)
 			{
+				p.innerHTML = `
+				<div id = 'progressback' style = "width: calc( 100vw - 175px ); height: 30px; background-color:lightgray">
+					<div id = 'progress' style = "transition: 5s; width:1%; height: 30px; background-color:green">
+				</div>`
 				console.log( "name: " + name + "; email: " + email);
 				set(email,name, l, linesE, p );
 				name = "";
@@ -356,11 +360,12 @@ function set( email, name, line, lines, p ){
 	})
 	.then(function() {
 		var per = Math.ceil(((line+1)/lines) * 100);
-		p.innerHTML = per + "% Uploaded"
-		if (per == 100)
-		{
-			p.innerHTML = "Done Uploading";		
-		}
+		console.log( per );
+		document.getElementById( "progress" ).style.width = per + "%";
+		// if (per == 100)
+		// {
+		// 	p.innerHTML = "Done Uploading";
+		// }
 	})
 	.catch(function(error) {
 		console.error("Error writing document: ", error);
