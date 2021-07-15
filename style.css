@@ -51,7 +51,6 @@ h1,h3,p,h4
 
 h1:hover{
 	cursor:pointer;
-	//color: #aaa;
 }
 
 #copied
@@ -124,14 +123,15 @@ button
 	font-size: 20px;
 	margin: 20px 80px;
 	padding: 20px;
-	background-color: #222;
+	background-color: #151515;
 	border:none;
+	transition: 0.2s;
 	color: white;
 }
 
 button:hover, a:hover
 {
-	background-color: #000;
+	background-color: #171717;
 	cursor: pointer;
 }
 #filter{
@@ -237,6 +237,71 @@ label
 	background-color: #880000;
 }
 
+.items
+{
+	width: calc( 100% - 160px );
+	margin-left: 80px;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.item
+{
+	height: 65px;
+	border-top: 1px solid #2227;
+	border-bottom: 1px solid #2227;
+}
+
+.item p
+{
+	padding: 0px;
+}
+
+.item > *
+{
+	font-weight: 200;
+	height: 100%;
+}
+
+.item .email
+{
+	text-align: left;
+}
+
+.item .options
+{
+	text-align: right;
+	/* width: 0%; */
+	font-size: 20px;
+	padding: 0px;
+}
+.options i
+{
+	transition: 0.1s;
+}
+
+.options i:hover
+{
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.item .email
+{
+	
+}
+.item button
+{
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 15px;
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	background-color: transparent;
+	color: white;
+	font-family: 'Roboto';
+}
 
 @media (max-width: 1000px)
 {
