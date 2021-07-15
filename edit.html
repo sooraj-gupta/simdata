@@ -1,0 +1,282 @@
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href = "style.css" rel = "stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Get Members</title>
+	</head>
+	
+	
+	<body onload = "getData();">
+		<div class="topnav">
+			<a id = "menubutton" style = "font-weight: 500; font-size: 35px" class= "mobile active" onclick = "openMenu();">&middot;&middot;&middot;</a>
+			<a  href="get.html" class = "active desktop">Get Data</a>
+            <a  href="submit.html" class = "desktop">Submit Data</a>
+			<a class="desktop" href = "index.html">Home</a> 
+        </div>
+		<div id = "menuwrapper">
+			<div id = "menu">
+				<a class="mobile" href = "index.html">Home</a>
+				<a  href="submit.html" class = "mobile">Submit Data</a>
+				<a  href="get.html" class = " active mobile">Get Data</a>
+			</div>
+		</div>
+		
+		
+		
+		<br><br><br>
+		<h1 onclick = "goto('index.html')">Students In Medicine</h1>
+		<h3>All Members</h3>
+		<br>
+		<hr>
+		<br>
+		<h3 id = "num"><h3>
+		<br>
+		<br>
+		<h4 id = "loading">Loading....</h4>
+
+		<div >
+			<button onclick = "if( deleted.length ) togglePopup()" style = "float: right; font-size: 13px; padding: 10px 15px; border-radius: 5px;font-weight: 500;letter-spacing: 1px;">COMMIT CHANGES</button> 
+			<h4 id = "num-deleted" style = "vertical-align: middle; display: inline-block; color: white" >Items staged for deletion: 0</h4>
+		</div>
+		<div id = "message" style = "margin-left: 80px;"></div>
+        <table class = "items">
+            
+        </table>
+
+
+
+
+
+
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+		<h3 id = "copied">
+			
+		</h3>
+		<div id = "copyable">
+			<input id = "emails" value = "">
+			<br>
+			<button onclick  = "copy('emails')">Copy all emails</button>	
+		</div>
+
+		<div id = "popupwrapper">
+			<div id = "popup">
+				<center>
+					<h1>u rly wanna commit changes?</h1><br>
+					<button id = "yes" onclick="togglePopup();makeChanges();">yuh</button><button onclick = "togglePopup();">nah</button>
+				</center>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<script>
+		  // Your web app's Firebase configuration
+		  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		  var firebaseConfig = {
+			apiKey: "AIzaSyC0ig93e1KJ_UdbN7S40p_baS9GXHFaVfU",
+			authDomain: "simdb-89c8a.firebaseapp.com",
+			databaseURL: "https://simdb-89c8a.firebaseio.com",
+			projectId: "simdb-89c8a",
+			storageBucket: "simdb-89c8a.appspot.com",
+			messagingSenderId: "737837602601",
+			appId: "1:737837602601:web:2c50ff51be1fb7a2884938",
+			measurementId: "G-L0NLEH0W1R"
+		  };
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  firebase.analytics();
+			
+		  const db = firebase.firestore();
+		</script>
+
+		
+		<script>
+            var info = [];
+			var deleted = [];
+
+            // Get the data from Firestore
+            function getData()
+			{
+				db.collection('people').get().then( (snapshot) => {
+					snapshot.docs.forEach(doc => {
+						var data = doc.data();
+						info.push( {"name": doc.data().name, "email": doc.data().email } );
+					});
+					info.sort( function( a, b )
+					{
+						return ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : ((a.name.toLowerCase() == b.name.toLowerCase()) ? 0 : 1));
+					});
+					print();
+				});
+				// info = 
+                // [
+                //     {"name": "Abby", "email": "abby@gmail.com"},
+                //     {"name": "Briana", "email": "briana@gmail.com"},    
+                //     {"name": "Cindy", "email": "cindy@gmail.com"},
+                //     {"name": "Dana", "email": "dana@gmail.com"},
+                //     {"name": "Evelyn", "email": "evelyn@gmail.com"},   
+                // ]
+			}
+            // Displays formatted data on the page
+            function print()
+            {
+                document.getElementById("loading").style.display = "block";
+                $("P").remove();
+                document.getElementById( "copyable" ).style.display = "none";
+
+                // for each item, create a div with a name and an email with delete button
+				console.log(info);
+                info.forEach( ( item ) => {
+                    let tr = document.createElement( 'tr' );
+                    tr.className = "item";                    
+                    let name = document.createElement( 'td' );
+                    name.innerHTML = item.name;
+                    name.className = "name";
+                    tr.appendChild( name );
+
+                    let email = document.createElement( 'td' );
+                    email.className = "email";
+                    email.innerHTML = item.email;
+                    tr.appendChild( email );        
+                    
+                    let options = document.createElement( 'td' );
+					options.className = "options"
+                    tr.appendChild( options );  
+
+					//Create an undo button
+					let undo = document.createElement( 'i' );
+					undo.className = "fa fa-undo";
+					undo.onclick = function() {
+						//Change color back to white and remove strikethrough
+						tr.querySelector( ".name" ).style.color = "white";
+						tr.querySelector( ".email" ).style.color = "white";
+						tr.querySelector( ".name" ).style.textDecoration = "none";
+						tr.querySelector( ".email" ).style.textDecoration = "none";
+						//Remove the item from the array
+						deleted.splice(deleted.indexOf(item), 1);
+
+						// hide undo button and show delete button
+						this.style.display = "none";
+						this.parentElement.querySelector( ".delete" ).style.display = "block";
+						document.querySelector( "#num-deleted").innerHTML = "Items staged for deletion: " + (deleted.length);
+					}
+					undo.style.display = "none"
+
+					//Create a delete button
+					let deleteButton = document.createElement( 'i' );
+					deleteButton.className = "fa fa-trash delete";
+					deleteButton.title = "Delete" + " " + item.name;
+					//When delete is clicked, add the item to the deleted array, and change button to undo button
+					deleteButton.onclick = function( e ) {
+						deleted.push(item);
+						item.el = tr;
+						// Change the item color to red and strikethrough
+						tr.querySelector( ".name" ).style.color = "red";
+						tr.querySelector( ".email" ).style.color = "red";
+						tr.querySelector( ".name" ).style.textDecoration = "line-through";
+						tr.querySelector( ".email" ).style.textDecoration = "line-through";
+						
+						// hide delete button and show undo button
+						deleteButton.style.display = "none";
+						undo.style.display = "inline";
+						document.querySelector( "#num-deleted").innerHTML = "Items staged for deletion: " + (deleted.length);
+					}
+					options.appendChild( deleteButton );
+					options.appendChild( undo );
+                    document.querySelector( ".items").appendChild( tr );
+                });
+                document.getElementById("loading").style.display = "none";
+            }
+
+			// Iterates through deleted array and removes corresponding items from Firestore
+			function makeChanges() 
+			{
+				let message = document.querySelector("#message");
+				message.innerHTML = `
+				<div id = 'progressback' style = "width: calc( 100vw - 175px ); height: 30px; background-color:lightgray">
+					<div id = 'progress' style = "transition: 5s; width:1%; height: 30px; background-color:green">
+				</div>`;
+
+				deleted.forEach( ( item, index ) => {
+					db.collection('people').doc(item.email).delete().then( () => {
+						let per = Math.ceil( (index + 1.0) / deleted.length * 100 ) + "%"
+						console.log( per );
+						item.el.remove();
+						document.getElementById( "progress" ).style.width = per;
+					}).catch( ( err ) => {
+						console.log(err);
+					})
+				})
+
+				numDeleted = deleted.length;
+				deleted = [];
+				document.querySelector( "#num-deleted" ).innerHTML = "Deleted: " + (deleted.length)
+				document.getElementById( "copied" ).style.top = "0";
+				document.getElementById( "copied" ).innerHTML = "Successfully Deleted " + (numDeleted) + " Items from Database";
+				setTimeout( function(){
+					document.getElementById( "copied" ).style.top = "-80";
+				}, 3500 );
+				setTimeout( () =>{
+					message.innerHTML = ``
+				}, 1000 );
+					
+			}
+
+			var openPop = false;
+			function togglePopup()
+			{
+				openPop = !openPop;
+				fadeIn( "popupwrapper", openPop );
+			}
+
+
+			function fadeIn( id, openPop )
+			{
+
+				if( openPop )
+				{
+					document.getElementById(id).style.display = openPop ? "block" : "none";
+					setTimeout( function() {
+						document.getElementById(id).style.opacity = openPop ? "1" : "0";
+						document.getElementById("popup").style.display = openPop ? "block" : "none";
+					}, 10 );
+					setTimeout( function() { slideDown( "popup", openPop ) }, 100 );
+				}
+				else
+				{
+					slideDown( "popup", openPop );
+					setTimeout( function() {
+						document.getElementById("popup").style.display = "none";
+						document.getElementById(id).style.opacity = "0";
+						setTimeout( function() {
+							document.getElementById(id).style.display = "none";
+						} , 300 );
+					}, 300 );
+				}
+			}
+			function slideDown( id, openPop )
+			{
+				document.getElementById(id).style.top = openPop ? "calc(30vh - 20px)" : "-50vh";
+			}
+
+        </script>
+	</body>
+
+</html>
